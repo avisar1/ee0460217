@@ -26,24 +26,45 @@ The dataset is split into training, validation, and test sets. To improve genera
 This project explores three distinct families of models:
 
 1.  **Convolutional Neural Networks (CNNs)**: We used transfer learning for established CNN architectures, replacing the final classifier to fit the five yoga poses. The analyzed architectures include:
-    * **AlexNet**: An early deep learning model with sequential convolutional and fully connected layers.
-    * **VGG16**: A deep, simple design featuring stacked 3x3 convolutions.
-    * **GoogLeNet**: Utilizes Inception modules for efficient multi-scale feature capture.
-    * **ResNet18**: Employs residual connections to facilitate the training of deeper networks.
-    * **CustomCNN**: A lightweight CNN built from scratch to serve as a baseline.
+    * **AlexNet**, **VGG16**, **GoogLeNet**, **ResNet18**, and a **CustomCNN**.
 
 2.  **Vision Transformers (ViTs)**: ViTs treat an image as a sequence of patches, which are then processed by a Transformer encoder, allowing for global context modeling. The project explores:
-    * **ViT-Base**: This model splits images into patches, flattens them, and uses self-attention to capture global relationships.
-    * **DINOv2**: A self-supervised ViT pre-trained on large unlabeled datasets, providing strong and transferable visual features.
+    * **ViT-Base** and **DINOv2**.
 
-3.  **Graph Neural Networks (GNNs)**: GNNs are used to analyze the body's structural representation by first extracting 2D keypoints (joints) and then connecting them to form a skeletal graph. The model explored is:
-    * **PoseGNN**: This network classifies poses by learning the relational patterns between body parts, with a focus on alignment and posture.
+3.  **Graph Neural Networks (GNNs)**: GNNs analyze the body's structural representation by first extracting 2D keypoints (joints) and then connecting them to form a skeletal graph. The model explored is:
+    * **PoseGNN**, which classifies poses by learning the relational patterns between body parts.
+
+---
+
+## 📈 Key Results and Insights
+
+A central theme of this project is that accuracy alone doesn't tell the whole story. By evaluating our models on explainability and robustness, we gain deeper insights into their behavior.
+
+### 1. Overall Robustness to Noise
+
+When tested against increasing levels of Gaussian noise, the models showed significant differences in performance. The **DINOv2** model proved to be exceptionally robust, maintaining high accuracy even under severe noise conditions, while other models like the Custom CNN and AlexNet degraded much more quickly. This highlights the value of advanced pre-training methods.
+
+![Overall Model Robustness vs. Noise](generated_figures/all_model_accuracy_vs_gaussian_noise.png)
+
+### 2. Explainability: How Do Models "See" a Pose?
+
+We used explainability techniques to visualize what parts of an image the models focus on. This helps verify that the models are learning relevant features of the yoga poses.
+
+* **Vision Transformer (DINOv2)**: The heatmap shows that DINOv2, a powerful ViT model, focuses on the entire silhouette and core areas of the body to make its classification. Its attention is broad and contextual.
+
+    ![DINOv2 Explainability Map](generated_figures/DinoV2_explainability.png)
+
+* **Graph Neural Network (PoseGNN)**: In contrast, the PoseGNN first creates a skeletal graph from the image. Its "explanation" highlights the specific joints and limbs that were most influential for its decision, providing a more structural and anatomically-based insight.
+
+    ![PoseGNN Explainability Map](generated_figures/poseGNN_explainability.png)
+
+---
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
 
-You will need Python 3 and the following libraries to run the project. You can install them using pip:
+You will need Python 3 and the following libraries. You can install them using pip:
 
 ```bash
 pip install torch torchvision tqdm matplotlib scikit-learn seaborn numpy timm mediapipe opencv-python torch-geometric
