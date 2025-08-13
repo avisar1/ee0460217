@@ -21,6 +21,18 @@ The project uses a curated dataset of five yoga poses:
 
 The dataset is split into training, validation, and test sets. To improve generalization and reduce overfitting, the training data is augmented with techniques like random resized cropping, horizontal flipping, rotation, and color jittering.
 
+## 📈 Data Preprocessing & Augmentation
+
+To ensure our models learn effectively and generalize well to new images, the dataset was carefully preprocessed. All images were normalized using standard ImageNet statistics.
+
+For the training set, we applied a series of data augmentation techniques to create more robust models and prevent overfitting. These transformations introduce variability, helping the model learn the essential features of each yoga pose rather than memorizing specific images. The augmentations included:
+
+* **Random Resized Cropping**: To focus on different parts of the pose.
+* **Random Horizontal Flipping**: To ensure the model is invariant to orientation.
+* **Random Rotation**: To handle variations in camera angle.
+* **Color Jittering**: To make the model robust to changes in lighting and color.
+
+
 ## 🧠 Models Explored
 
 This project explores three distinct families of models:
@@ -55,6 +67,47 @@ Our experiments show that deeper, well-established architectures significantly o
 | **ViT** | ViT-Base | N/A | 95.74 | 0.9590 | 0.9529 | 0.9555 |
 | | DinoV2 | N/A | 97.87 | 0.9782 | 0.9780 | 0.9781 |
 | **GNN** | PoseGNN | N/A | 89.03 | N/A | N/A | N/A |
+
+---
+
+## 📊 Training Performance: Accuracy & Loss Graphs
+
+The following graphs illustrate the training and validation performance for two representative models over 50 epochs. They plot the accuracy and loss, providing insight into how well each model learned and generalized.
+
+### VGG16 (High-Performing Model)
+
+![VGG16 Training Graphs](generated_figures/vgg16_accuracy_loss_graphs.png)
+
+The training graphs for **VGG16** show excellent performance. The validation accuracy (orange line) climbs steadily and converges near the training accuracy, reaching a high value. Similarly, the validation loss decreases consistently and stabilizes. This indicates that the model learned effectively and generalized well to the unseen validation data without significant overfitting.
+
+### CustomCNN (Lower-Performing Model)
+
+![CustomCNN Training Graphs](generated_figures/CustomCNN_accuracy_loss_graphs.png)
+
+In contrast, the **CustomCNN** model's performance was significantly weaker. The graph shows a much lower final validation accuracy and a higher validation loss. The gap between the training and validation curves suggests that the simple, custom-built architecture struggled to learn the complex patterns in the data and did not generalize as effectively as the deeper, pre-trained VGG16 model.
+
+## 🤖 Model Evaluation: Confusion Matrices
+
+A **confusion matrix** is a table used to visualize the performance of a classification model. It shows a detailed breakdown of correct and incorrect predictions for each class.
+
+* **The Diagonal**: Each cell on the main diagonal (from top-left to bottom-right) represents the number of **correct predictions** for that class. Higher numbers here are better.
+* **Off-Diagonal**: Cells off the diagonal represent **misclassifications** or "confusion." For example, the cell at (Row 2, Column 1) shows how many times the model incorrectly predicted Class 1 when the true answer was Class 2. Lower numbers here are better.
+
+A perfect model would have non-zero values only on the diagonal. By analyzing the off-diagonal values, we can understand which specific classes the model struggles to differentiate between. 
+
+---
+
+### DinoV2 (High-Performing Model)
+
+![DinoV2 Confusion Matrix](generated_figures/DinoV2_confusion_matrix.png)
+
+The confusion matrix for **DinoV2** confirms its high accuracy. The diagonal values are overwhelmingly dominant, indicating that the model correctly classified the vast majority of test images for all five yoga poses. The off-diagonal cells have very low values, showing minimal confusion between classes and highlighting the model's excellent discriminative ability.
+
+### CustomCNN (Lower-Performing Model)
+
+![CustomCNN Confusion Matrix](generated_figures/CustomCNN_confusion_matrix.png)
+
+In contrast, the **CustomCNN's** confusion matrix clearly illustrates its weaker performance. While there are still correct predictions along the diagonal, the off-diagonal cells contain significantly higher numbers. This indicates a much higher rate of misclassification across multiple poses, which aligns with the model's lower overall accuracy score. This matrix helps pinpoint exactly which poses the simple CNN architecture found most difficult to distinguish.
 
 ### 2. Explainability
 
