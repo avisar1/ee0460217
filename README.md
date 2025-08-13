@@ -181,13 +181,10 @@ The code expects the dataset to be organized in the following folder structure:
 
 ### 3. Load the Dataset in Your Code
 
-You can use the `YogaPoseDataset` class to load the training, testing, and validation splits. Make sure you have defined your `transform_train` and `transform_eval` functions for data augmentation and normalization.
+You can use the `YogaPoseDataset` class to load the training and testing. Make sure you have defined your `transform_train` and `transform_eval` functions for data augmentation and normalization.
 
 Here is an example of how to instantiate the datasets:
 
-
-TBDDDDDDDDDDDDD
-EXPLAIN HOW TO LOADDDD!!!!!!!!!!!!!!!!!!!!!!
 ```python
 # First, define your transformations for training and evaluation
 # transform_train = ...
@@ -196,11 +193,11 @@ EXPLAIN HOW TO LOADDDD!!!!!!!!!!!!!!!!!!!!!!
 # Create the dataset objects
 full_train_dataset = YogaPoseDataset("./yoga_aayush/DATASET/TRAIN", transform=transform_train)
 test_dataset = YogaPoseDataset("./yoga_aayush/DATASET/TEST", transform=transform_eval)
-validation_dataset = YogaPoseDataset("./yoga_aayush/DATASET/VALIDATION", transform=transform_eval)
 
 # You can now use these datasets with PyTorch's DataLoader
 # train_loader = DataLoader(full_train_dataset, batch_size=32, shuffle=True)
 # test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+# val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 ```
 
 ## 📚 References
