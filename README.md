@@ -202,6 +202,7 @@ test_dataset = YogaPoseDataset("./yoga_aayush/DATASET/TEST", transform=transform
 ### 4. Run the script. 
 
 python your_script.run
+
 Alteranatively you can run the script from the Jupiter notebook itself.
 
 ## 📚 References
