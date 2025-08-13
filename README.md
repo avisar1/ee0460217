@@ -178,7 +178,6 @@ The code expects the dataset to be organized in the following folder structure:
     * `📁 DATASET/`
         * `📁 TRAIN/` (contains subfolders for each pose: `downdog`, `goddess`, etc.)
         * `📁 TEST/` (has the same structure as the TRAIN folder)
-        * `📁 VALIDATION/` (has the same structure as the TRAIN folder)
 
 ### 3. Load the Dataset in Your Code
 
