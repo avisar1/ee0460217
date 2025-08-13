@@ -35,36 +35,78 @@ This project explores three distinct families of models:
     * **PoseGNN**, which classifies poses by learning the relational patterns between body parts.
 
 ---
+## 📊 Results
 
-## 📈 Key Results and Insights
+### 1. Performance
 
-A central theme of this project is that accuracy alone doesn't tell the whole story. By evaluating our models on explainability and robustness, we gain deeper insights into their behavior.
+Our experiments show that deeper, well-established architectures significantly outperformed simpler ones. **VGG16 (Full Train)** achieved the highest performance with 98.51% accuracy, closely followed by **DINOv2** at 97.87%. For CNN models, training from scratch consistently yielded better results than fine-tuning.
 
-### 1. Overall Robustness to Noise
+| Architecture | Model | Training | Test Accuracy (%) | Precision (Avg) | Recall (Avg) | F1-Score (Avg) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **CNN** | AlexNet | Fine-tune | 90.21 | 0.9058 | 0.8997 | 0.9007 |
+| | | Full Train | 95.74 | 0.9600 | 0.9595 | 0.9597 |
+| | VGG16 | Fine-tune | 94.47 | 0.9456 | 0.9443 | 0.9445 |
+| | | Full Train | **98.51** | **0.9849** | **0.9855** | **0.9851** |
+| | GoogLeNet | Fine-tune | 91.28 | N/A | N/A | N/A |
+| | | Full Train | 97.87 | 0.9789 | 0.9752 | 0.9768 |
+| | ResNet18 | Fine-tune | 90.85 | 0.9096 | 0.8973 | 0.9008 |
+| | | Full Train | 98.09 | 0.9806 | 0.9820 | 0.9812 |
+| | CustomCNN | N/A | 77.66 | 0.7796 | 0.7773 | 0.7777 |
+| **ViT** | ViT-Base | N/A | 95.74 | 0.9590 | 0.9529 | 0.9555 |
+| | DinoV2 | N/A | 97.87 | 0.9782 | 0.9780 | 0.9781 |
+| **GNN** | PoseGNN | N/A | 89.03 | N/A | N/A | N/A |
 
-When tested against increasing levels of Gaussian noise, the models showed significant differences in performance. The **DINOv2** model proved to be exceptionally robust, maintaining high accuracy even under severe noise conditions, while other models like the Custom CNN and AlexNet degraded much more quickly. This highlights the value of advanced pre-training methods.
+### 2. Explainability
+
+We used Grad-CAM to visualize what parts of an image the models focus on to verify that they are learning relevant features of the yoga poses. Below are the explainability maps for the `downdog` pose across different models.
+
+* **VGG16 (Full Train vs. Fine-Tune)**: The fully trained model shows a strong, continuous focus on the hips and arms, while the fine-tuned version emphasizes the back and hips.
+    ![VGG16 Full Train Explainability](generated_figures/VGG16_full_train_explainability.png)
+    ![VGG16 Fine-Tune Explainability](generated_figures/VGG16_fine_tune_explainability.png)
+
+* **ResNet18 & GoogLeNet (Full Train)**: ResNet18 has a balanced focus on the entire "V" shape of the pose, whereas GoogLeNet centralizes its focus on the hip and back area.
+    ![ResNet18 Full Train Explainability](generated_figures/ResNet18_full_train_explainability.png)
+    ![GoogLeNet Full Train Explainability](generated_figures/GoogLeNet_full_train_explainability.png)
+
+* **AlexNet (Full Train vs. Fine-Tune)**: The fully trained AlexNet focuses on the hands, shoulders, and back. The fine-tuned version is more scattered, with a narrower focus on the hips and upper legs.
+    ![AlexNet Full Train Explainability](generated_figures/AlexNet_full_train_explainability.png)
+    ![AlexNet Fine-Tune Explainability](generated_figures/AlexNet_fine_tune_explainability.png)
+
+* **ViT-Base & DINOv2**: Both ViT models cover the entire body in their focus maps. DINOv2 produces a sharper focus on limb joints and symmetrical posture, suggesting stronger spatial awareness.
+    ![ViT-Base Explainability](generated_figures/Basix_ViT_explainability.png)
+    ![DINOv2 Explainability](generated_figures/DinoV2_explainability.png)
+
+* **CustomCNN**: The custom model shows dispersed and inconsistent focus, often including background regions, which correlates with its lower accuracy.
+    ![Custom CNN Explainability](generated_figures/Custom_CNN_explainability.png)
+
+* **PoseGNN**: Instead of a heatmap, PoseGNN's explainability identifies critical joints like the wrists, shoulders, hips, and ankles that define the pose, offering a structural interpretation.
+    ![PoseGNN Explainability](generated_figures/poseGNN_explainability.png)
+
+### 3. Robustness to Noise
+
+We evaluated all models under varying levels of Gaussian noise. Models trained from scratch generally showed better robustness than fine-tuned versions. ViT models were also highly robust, while the PoseGNN was more sensitive to noise as it disrupts keypoint detection.
 
 ![Overall Model Robustness vs. Noise](generated_figures/all_model_accuracy_vs_gaussian_noise.png)
 
-### 2. Explainability: How Do Models "See" a Pose?
+## 🎯 Conclusions
 
-We used explainability techniques to visualize what parts of an image the models focus on. This helps verify that the models are learning relevant features of the yoga poses.
+This project provides a comprehensive analysis of neural network architectures for yoga pose classification, moving beyond accuracy to include explainability and robustness.
 
-* **Vision Transformer (DINOv2)**: The heatmap shows that DINOv2, a powerful ViT model, focuses on the entire silhouette and core areas of the body to make its classification. Its attention is broad and contextual.
+* **Performance**: Deeper architectures like **VGG16** and **DINOv2** are superior for this task. For CNNs, **training from scratch** on the specific dataset proved more effective than fine-tuning pre-trained models.
+* **Explainability**: The best-performing models (CNNs and ViTs) focus on relevant anatomical regions. PoseGNN offers a complementary, structural interpretation by identifying key joints. The analysis confirms that higher accuracy often correlates with more meaningful and consistent model focus.
+* **Robustness**: Fully trained CNNs and ViT models demonstrate strong resilience to noise. This highlights that the training strategy and architecture choice are critical for developing models that can perform reliably in real-world conditions where image quality may vary.
 
-    ![DINOv2 Explainability Map](generated_figures/DinoV2_explainability.png)
+## ⚙️ Hyperparameters
 
-* **Graph Neural Network (PoseGNN)**: In contrast, the PoseGNN first creates a skeletal graph from the image. Its "explanation" highlights the specific joints and limbs that were most influential for its decision, providing a more structural and anatomically-based insight.
+The following shared hyperparameters were used during training:
+* **Loss Function**: `nn.CrossEntropyLoss`
+* **Optimizer**: `Adam` for most models, `AdamW` for PoseGNN
+* **Epochs**: 50
+* **Batch Size**: 32
 
-    ![PoseGNN Explainability Map](generated_figures/poseGNN_explainability.png)
+## 📚 References
 
----
-
-## 🛠️ Getting Started
-
-### Prerequisites
-
-You will need Python 3 and the following libraries. You can install them using pip:
-
-```bash
-pip install torch torchvision tqdm matplotlib scikit-learn seaborn numpy timm mediapipe opencv-python torch-geometric
+* **Dataset**: Yoga Pose Dataset on Kaggle. [Link](https://www.kaggle.com/code/aayushmishra1512/yoga-pose-detection/input)
+* Selvaraju, R. R., et al. "Grad-CAM: Visual explanations from deep networks via gradient-based localization." *ICCV*, 2017.
+* Chattopadhyay, A., et al. "Grad-CAM++: Improved visual explanations for deep convolutional networks." *WACV*, 2018.
+* Dosovitskiy, A., et al. "An image is worth 16x16 words: Transformers for image recognition at scale." *ICLR*, 2021.
