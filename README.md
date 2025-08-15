@@ -141,12 +141,12 @@ We evaluated all models under varying levels of Gaussian noise. Models trained f
 
 ![Overall Model Robustness vs. Noise](generated_figures/all_model_accuracy_vs_gaussian_noise.png)
 For comparison, the following table shows the noise robustness of all evaluated models across the same Gaussian noise levels:
-![Noise Robustness Table - All Models](Noise_Robustness_table.png)
+![Noise Robustness Table - All Models](generated_figures/Noise_Robustness_table.png)
 
 The following figure illustrates the accuracy degradation of PoseGNN under increasing levels of Gaussian noise:
-![PoseGNN Accuracy vs Gaussian Noise](Gnn_noise_robustness.png)
+![PoseGNN Accuracy vs Gaussian Noise](generated_figures/Gnn_noise_robustness.png)
 The table below presents the exact accuracy values for PoseGNN at different noise levels:
-![GNN Noise Robustness Table](Gnn_noise_robustness_table.png)
+![GNN Noise Robustness Table](generated_figures/Gnn_noise_robustness_table.png)
 
 ## 🎯 Conclusions
 
