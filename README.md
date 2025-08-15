@@ -1,6 +1,8 @@
 # Beyond Accuracy: Comparative Analysis of Neural Network Architectures, Explainability, and Robustness in Yoga Pose Classification
 
 This repository contains the code and report for a deep learning project that goes beyond traditional accuracy metrics to provide a holistic evaluation of various neural network architectures for yoga pose classification. This project systematically compares multiple well-known neural network architectures, focusing not only on **accuracy** but also on **explainability** and **robustness**.
+### Youtube link : https://www.youtube.com/watch?v=Ck7_QeH6kl4
+
 
 ## 📑 Table of Contents
 - [Project Goal](#project-goal)
@@ -190,11 +192,25 @@ This project provides a comprehensive analysis of neural network architectures f
 
 ## ⚙️ Hyperparameters
 
-The following shared hyperparameters were used during training:
-* **Loss Function**: `nn.CrossEntropyLoss`
-* **Optimizer**: `Adam` for most models, `AdamW` for PoseGNN
-* **Epochs**: 50
-* **Batch Size**: 32
+The following table summarizes the main hyperparameters used during training, along with their default values and descriptions.  
+Some parameters (like learning rate and scheduler) are flexible and can be adjusted by the user depending on the model and experiment.
+
+| Hyperparameter      | Default Value       | Description |
+|---------------------|--------------------|-------------|
+| **Loss Function**   | `nn.CrossEntropyLoss` | Standard classification loss used for multi-class problems. |
+| **Optimizer**       | `Adam` (most models), `AdamW` (PoseGNN) | Optimization algorithm used to update model weights. |
+| **Learning Rate (LR)** | `0.001` (default, user-adjustable) | Step size for weight updates; critical for convergence speed and stability. |
+| **Scheduler**       | `StepLR` / `CosineAnnealingLR` / `ReduceLROnPlateau` (optional) | Dynamically adjusts the learning rate during training. `ReduceLROnPlateau` reduces the LR when a metric (e.g., validation loss) has stopped improving. |
+| **Epochs**          | `50` | Number of complete passes through the training dataset. |
+| **Batch Size**      | `32` | Number of samples processed before updating the model weights. |
+| **Weight Decay**    | `1e-4` (optional) | L2 regularization to prevent overfitting. |
+| **Momentum**        | N/A (used if `SGD` optimizer is chosen) | Helps accelerate SGD in the relevant direction and dampens oscillations. |
+| **Data Augmentation** | Enabled for training set | Techniques like random crop, flip, rotation, and color jitter to improve generalization. |
+| **Seed**            | `42` | Random seed for reproducibility. |
+
+💡 **Note:** The learning rate (`LR`) ,scheduler and Weight Decay type can be set in the configuration file or directly in the training script to allow experimentation with different training dynamics.
+
+
 
 ## 🚀 How to Use
 
