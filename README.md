@@ -140,6 +140,13 @@ We used Grad-CAM to visualize what parts of an image the models focus on to veri
 We evaluated all models under varying levels of Gaussian noise. Models trained from scratch generally showed better robustness than fine-tuned versions. ViT models were also highly robust, while the PoseGNN was more sensitive to noise as it disrupts keypoint detection.
 
 ![Overall Model Robustness vs. Noise](generated_figures/all_model_accuracy_vs_gaussian_noise.png)
+For comparison, the following table shows the noise robustness of all evaluated models across the same Gaussian noise levels:
+![Noise Robustness Table - All Models](Noise_Robustness_table.png)
+
+The following figure illustrates the accuracy degradation of PoseGNN under increasing levels of Gaussian noise:
+![PoseGNN Accuracy vs Gaussian Noise](Gnn_noise_robustness.png)
+The table below presents the exact accuracy values for PoseGNN at different noise levels:
+![GNN Noise Robustness Table](Gnn_noise_robustness_table.png)
 
 ## 🎯 Conclusions
 
