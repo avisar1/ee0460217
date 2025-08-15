@@ -2,7 +2,23 @@
 
 This repository contains the code and report for a deep learning project that goes beyond traditional accuracy metrics to provide a holistic evaluation of various neural network architectures for yoga pose classification. This project systematically compares multiple well-known neural network architectures, focusing not only on **accuracy** but also on **explainability** and **robustness**.
 
-## 🧘‍♀️ Project Goal
+## 📑 Table of Contents
+- [Project Goal](#project-goal)
+- [Dataset](#dataset)
+- [Data Preprocessing & Augmentation](#-data-preprocessing--augmentation)
+- [Models Explored](#-models-explored)
+- [Results](#-results)
+  - [Performance](#1-performance)
+  - [Training Performance: Accuracy & Loss Graphs](#-training-performance-accuracy--loss-graphs)
+  - [Model Evaluation: Confusion Matrices](#-model-evaluation-confusion-matrices)
+  - [Explainability](#2-explainability)
+  - [Robustness to Noise](#3-robustness-to-noise)
+- [Conclusions](#-conclusions)
+- [Hyperparameters](#️-hyperparameters)
+- [How to Use](#-how-to-use)
+- [References](#-references)
+
+<h2 id="project-goal">🧘‍♀️ Project Goal</h2>
 
 The primary goal of this project is to move beyond the standard accuracy metric and explore:
 
@@ -182,9 +198,31 @@ The following shared hyperparameters were used during training:
 
 ## 🚀 How to Use
 
-Follow these steps to set up the dataset and run the code.
+Follow these steps to set up the dataset and run the code from this repository.
 
-### 1. Download the Dataset
+### 1. Clone this repository
+```bash
+git clone https://github.com/avisar1/ee0460217.git
+cd ee0460217
+```
+### 2. (Optional) Set up a virtual environment and install dependencies
+```bash
+python -m venv .venv
+```
+Windows:
+```bash
+.venv\Scripts\activate
+```
+macOS/Linux:
+```bash
+source .venv/bin/activate
+```
+install the common packages used in the notebook:
+```bash
+pip install torch torchvision torchaudio jupyter matplotlib scikit-learn numpy pillow tqdm
+```
+
+### 3. Download the Dataset
 
 First, you need to download the dataset from its official source on Kaggle.
 
@@ -192,41 +230,26 @@ First, you need to download the dataset from its official source on Kaggle.
 
 After downloading, unzip the contents into your project's root directory.
 
-### 2. Directory Structure
+### 4. Directory Structure
 
 The code expects the dataset to be organized in the following folder structure:
 
-* `📄 your_training_script.py`
+* `📄 Models_Yoga_5_poses_3_1.ipynb`
 * `📁 yoga_aayush/`
     * `📁 DATASET/`
         * `📁 TRAIN/` (contains subfolders for each pose: `downdog`, `goddess`, etc.)
         * `📁 TEST/` (has the same structure as the TRAIN folder)
 
-### 3. Load the Dataset in Your Code
+### 5. Run from this repository (Jupyter Notebook)
 
-You can use the `YogaPoseDataset` class to load the training and testing. Make sure you have defined your `transform_train` and `transform_eval` functions for data augmentation and normalization.
-
-Here is an example of how to instantiate the datasets:
-
-```python
-# First, define your transformations for training and evaluation
-# transform_train = ...
-# transform_eval = ...
-
-# Create the dataset objects
-full_train_dataset = YogaPoseDataset("./yoga_aayush/DATASET/TRAIN", transform=transform_train)
-test_dataset = YogaPoseDataset("./yoga_aayush/DATASET/TEST", transform=transform_eval)
-
-# You can now use these datasets with PyTorch's DataLoader
-# train_loader = DataLoader(full_train_dataset, batch_size=32, shuffle=True)
-# test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
-# val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+This repository includes a ready-to-run notebook. Launch Jupyter and open the notebook:
+```bash
+jupyter notebook
 ```
-### 4. Run the script. 
+Then open `Models_Yoga_5_poses_3_1.ipynb`, update the dataset path if needed (default:
+./yoga_aayush/DATASET/...), and Run All to train and evaluate the models.
 
-python your_training_script.py
 
-Alteranatively you can run the script from the Jupiter notebook itself.
 
 ## 📚 References
 
