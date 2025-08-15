@@ -145,6 +145,10 @@ For comparison, the following table shows the noise robustness of all evaluated 
 <p>
   <img src="generated_figures/Noise_Robustness_table.png" width="70%">
 </p>
+<p>
+  <img src="generated_figures/all_model_accuracy_vs_gaussian_noise.png" width="50%">
+  <img src="generated_figures/Noise_Robustness_table.png" width="45%">
+</p>
 
 The following figure illustrates the accuracy degradation of PoseGNN under increasing levels of Gaussian noise:
 <p>
@@ -155,7 +159,10 @@ The table below presents the exact accuracy values for PoseGNN at different nois
 <p>
   <img src="generated_figures/Gnn_noise_robustness_table.png" width="70%">
 </p>
-
+<p>
+  <img src="generated_figures/Gnn_noise_robustness.png" width="45%">
+  <img src="generated_figures/Gnn_noise_robustness_table.png" width="45%">
+</p>
 
 ## 🎯 Conclusions
 
